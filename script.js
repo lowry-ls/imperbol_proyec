@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const time = document.getElementById('time').value;
 
         if (!name || !email || !date || !time) {
-            responseDiv.textContent = 'Por favor completa todos los campos.';
+            responseDiv.textContent = 'Por favor completa todos los campos para solicitar tu diagnóstico.';
             responseDiv.style.color = 'red';
             return;
         }
-        responseDiv.textContent = '¡Reserva confirmada! Nos pondremos en contacto contigo.';
+        responseDiv.textContent = '¡Diagnóstico solicitado! Nos pondremos en contacto contigo pronto para confirmar tu visita.';
         responseDiv.style.color = 'green';
         form.reset();
     });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = parseFloat(document.getElementById('temp').value);
         const dew = parseFloat(document.getElementById('dew').value);
         if (isNaN(t) || isNaN(dew)) {
-            resultP.textContent = 'Ingrese temperatura y punto de rocío válidos.';
+            resultP.textContent = 'Ingresa temperatura y punto de rocío válidos para evaluar la humedad.';
             resultP.style.color = 'red';
             return;
         }
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const gammaT = (a * t) / (b + t);
         const gammaD = (a * dew) / (b + dew);
         const rh = Math.exp(gammaD - gammaT) * 100;
-        resultP.textContent = 'Humedad relativa: ' + rh.toFixed(1) + '%';
-        resultP.style.color = 'black';
+        resultP.textContent = 'Humedad relativa estimada: ' + rh.toFixed(1) + '%. ' + (rh > 60 ? 'Recomendamos realizar un diagnóstico profesional.' : 'Nivel normal de humedad.');
+        resultP.style.color = rh > 60 ? 'orange' : 'green';
     });
 });
 function changeSlide(n) {
