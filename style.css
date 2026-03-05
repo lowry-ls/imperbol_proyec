@@ -42,7 +42,7 @@ body {
 .site-header h1 {
     display: inline-block;
     font-size: 1.8em;
-    font-family: 'Georgia', serif; /* tipografía profesional */
+    font-family: 'Georgia', serif; 
 }
 
 .site-header nav ul {
@@ -101,21 +101,10 @@ body {
     opacity: 1;
 }
 
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+/* los botones del carrusel ya no son necesarios, los ocultamos */
+.carousel-btn { display: none; }
 
+/* estilos prev/next conservados por si se reactivan más tarde */
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }

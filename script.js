@@ -3,16 +3,8 @@ let autoSlideTimer;
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');
     const responseDiv = document.getElementById('form-response');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    prevBtn.addEventListener('click', () => {
-        changeSlide(-1);
-        resetAutoSlide();
-    });
-    nextBtn.addEventListener('click', () => {
-        changeSlide(1);
-        resetAutoSlide();
-    });
+    // botones de navegación eliminados; el carrusel es automático
+
     startAutoSlide();
     form.addEventListener('submit', (e) => {
         e.preventDefault();
