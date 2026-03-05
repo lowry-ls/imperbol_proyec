@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // botones de navegación eliminados; el carrusel es automático
 
     startAutoSlide();
+
+    // menú móvil: alternar el listado de navegación
+    const hamburger = document.getElementById('hamburger');
+    const navList = document.querySelector('.site-header nav ul');
+    if (hamburger && navList) {
+        hamburger.addEventListener('click', () => {
+            navList.classList.toggle('open');
+        });
+    }
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value.trim();
