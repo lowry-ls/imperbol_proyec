@@ -73,9 +73,10 @@ function showSlide(n) {
 }
 
 function startAutoSlide() {
+    // interval aumentado a 7 segundos para una transición más lenta
     autoSlideTimer = setInterval(() => {
         changeSlide(1);
-    }, 5000);
+    }, 7000);
 }
 
 function resetAutoSlide() {

@@ -42,6 +42,7 @@ body {
 .site-header h1 {
     display: inline-block;
     font-size: 1.8em;
+    font-family: 'Georgia', serif; /* tipografía profesional */
 }
 
 .site-header nav ul {
