@@ -1,88 +1,121 @@
-let currentSlideIndex = 1;
-let autoSlideTimer;
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
-    const responseDiv = document.getElementById('form-response');
-    // botones de navegación eliminados; el carrusel es automático
-
-    startAutoSlide();
-
-    // menú móvil: alternar el listado de navegación
-    const hamburger = document.getElementById('hamburger');
-    const navList = document.querySelector('.site-header nav ul');
-    if (hamburger && navList) {
-        hamburger.addEventListener('click', () => {
-            navList.classList.toggle('open');
-        });
-    }
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const date = document.getElementById('date').value;
-        const time = document.getElementById('time').value;
-
-        if (!name || !email || !date || !time) {
-            responseDiv.textContent = 'Por favor completa todos los campos para solicitar tu diagnóstico.';
-            responseDiv.style.color = 'red';
-            return;
-        }
-        responseDiv.textContent = '¡Diagnóstico solicitado! Nos pondremos en contacto contigo pronto para confirmar tu visita.';
-        responseDiv.style.color = 'green';
-        form.reset();
-    });
-    const calcBtn = document.getElementById('calc-humidity');
-    const resultP = document.getElementById('humidity-result');
-
-    calcBtn.addEventListener('click', () => {
-        const t = parseFloat(document.getElementById('temp').value);
-        const dew = parseFloat(document.getElementById('dew').value);
-        if (isNaN(t) || isNaN(dew)) {
-            resultP.textContent = 'Ingresa temperatura y punto de rocío válidos para evaluar la humedad.';
-            resultP.style.color = 'red';
-            return;
-        }
-        const a = 17.625, b = 243.04;
-        const gammaT = (a * t) / (b + t);
-        const gammaD = (a * dew) / (b + dew);
-        const rh = Math.exp(gammaD - gammaT) * 100;
-        resultP.textContent = 'Humedad relativa estimada: ' + rh.toFixed(1) + '%. ' + (rh > 60 ? 'Recomendamos realizar un diagnóstico profesional.' : 'Nivel normal de humedad.');
-        resultP.style.color = rh > 60 ? 'orange' : 'green';
-    });
+// ─── HEADER SCROLL ─────────────────────────────────────
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
 });
-function changeSlide(n) {
-    showSlide(currentSlideIndex += n);
-}
-function currentSlide(n) {
-    showSlide(currentSlideIndex = n);
-}
-function showSlide(n) {
-    const slides = document.querySelectorAll('.carousel-img');
-    const dots = document.querySelectorAll('.dot');
 
-    if (n > slides.length) {
-        currentSlideIndex = 1;
-    } else if (n < 1) {
-        currentSlideIndex = slides.length;
+// ─── HAMBURGER ─────────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const navList = document.getElementById('nav-list');
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navList.classList.toggle('open');
+});
+navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navList.classList.remove('open');
+}));
+
+// ─── CAROUSEL ──────────────────────────────────────────
+let currentSlide = 1;
+const totalSlides = 4;
+let autoTimer;
+
+function goToSlide(n) {
+    document.querySelector('.hero-slide.active')?.classList.remove('active');
+    document.querySelector('.dot.active')?.classList.remove('active');
+    currentSlide = ((n - 1 + totalSlides) % totalSlides) + 1;
+    document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.querySelectorAll('.dot')[currentSlide - 1].classList.add('active');
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goToSlide(currentSlide + 1), 7000);
+}
+autoTimer = setInterval(() => goToSlide(currentSlide + 1), 7000);
+
+// ─── SCROLL REVEAL ─────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.delay || 0;
+            setTimeout(() => el.classList.add('visible'), delay);
+            observer.unobserve(el);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .service-card, .project-card, .g-item').forEach((el) => {
+    observer.observe(el);
+});
+
+// stagger siblings
+document.querySelectorAll('.services-grid .service-card').forEach((el, i) => { el.dataset.delay = i * 120; });
+document.querySelectorAll('.projects-grid .project-card').forEach((el, i) => { el.dataset.delay = i * 120; });
+document.querySelectorAll('.gallery-grid .g-item').forEach((el, i) => { el.dataset.delay = i * 80; });
+document.querySelectorAll('.stats .reveal').forEach((el, i) => { el.dataset.delay = i * 100; });
+
+// ─── COUNTER ANIMATION ─────────────────────────────────
+const counters = [
+    { id: 's1', target: 350 },
+    { id: 's2', target: 98 },
+    { id: 's3', target: 15 },
+    { id: 's4', target: 12 },
+];
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            counters.forEach(({ id, target }) => {
+                const el = document.getElementById(id);
+                let count = 0;
+                const step = Math.ceil(target / 60);
+                const timer = setInterval(() => {
+                    count = Math.min(count + step, target);
+                    el.textContent = count;
+                    if (count >= target) clearInterval(timer);
+                }, 24);
+            });
+            statsObserver.disconnect();
+        }
+    });
+}, { threshold: .4 });
+statsObserver.observe(document.querySelector('.stats'));
+
+// ─── FORM ───────────────────────────────────────────────
+document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const date  = document.getElementById('date').value;
+    const time  = document.getElementById('time').value;
+    const resp  = document.getElementById('form-response');
+
+    if (!name || !email || !date || !time) {
+        resp.textContent = 'Por favor completa todos los campos.';
+        resp.className = 'error';
+        return;
     }
+    resp.textContent = '¡Diagnóstico solicitado! Te contactaremos pronto para confirmar tu visita.';
+    resp.className = 'success';
+    e.target.reset();
+});
 
-    slides.forEach((slide) => slide.classList.remove('active'));
-    dots.forEach((dot) => dot.classList.remove('active'));
-
-    slides[currentSlideIndex - 1].classList.add('active');
-    dots[currentSlideIndex - 1].classList.add('active');
-}
-
-function startAutoSlide() {
-    // interval aumentado a 7 segundos para una transición más lenta
-    autoSlideTimer = setInterval(() => {
-        changeSlide(1);
-    }, 7000);
-}
-
-function resetAutoSlide() {
-    clearInterval(autoSlideTimer);
-    startAutoSlide();
-}
-
-showSlide(currentSlideIndex);
+// ─── HUMIDITY CALCULATOR ───────────────────────────────
+document.getElementById('calc-humidity').addEventListener('click', () => {
+    const t   = parseFloat(document.getElementById('temp').value);
+    const dew = parseFloat(document.getElementById('dew').value);
+    const res = document.getElementById('humidity-result');
+    if (isNaN(t) || isNaN(dew)) {
+        res.style.color = '#e07070';
+        res.textContent = 'Ingresa valores válidos.';
+        return;
+    }
+    const a = 17.625, b = 243.04;
+    const rh = Math.exp((a * dew / (b + dew)) - (a * t / (b + t))) * 100;
+    if (rh > 60) {
+        res.style.color = '#f0a020';
+        res.textContent = `Humedad: ${rh.toFixed(1)}% — Recomendamos un diagnóstico profesional.`;
+    } else {
+        res.style.color = '#8fd8cc';
+        res.textContent = `Humedad: ${rh.toFixed(1)}% — Nivel normal de humedad.`;
+    }
+});
