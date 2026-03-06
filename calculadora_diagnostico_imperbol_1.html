@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Humedad | Imperbol Solutions</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f8;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+max-width:500px;
+width:95%;
+}
+
+h1{
+text-align:center;
+font-size:24px;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+}
+
+.step{
+display:none;
+}
+
+.step.active{
+display:block;
+}
+
+.question{
+margin-bottom:18px;
+}
+
+select{
+width:100%;
+padding:10px;
+font-size:15px;
+margin-top:6px;
+}
+
+button{
+margin-top:15px;
+padding:12px;
+font-size:16px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+width:100%;
+background:#0077cc;
+color:white;
+}
+
+button:hover{
+background:#005fa3;
+}
+
+.result{
+margin-top:20px;
+padding:15px;
+border-radius:8px;
+font-size:16px;
+}
+
+.low{
+background:#e8f7e9;
+color:#2e7d32;
+}
+
+.medium{
+background:#fff6e0;
+color:#b26a00;
+}
+
+.high{
+background:#fdecea;
+color:#b71c1c;
+}
+
+.whatsapp{
+display:block;
+margin-top:15px;
+text-align:center;
+background:#25D366;
+color:white;
+padding:12px;
+border-radius:6px;
+text-decoration:none;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Diagnóstico de Humedad</h1>
+<div class="subtitle">Herramienta rápida para detectar filtraciones</div>
+
+<div class="step active" id="step1">
+
+<div class="question">
+<label>¿Dónde aparece la humedad?</label>
+<select id="ubicacion">
+<option value="0">No hay humedad visible</option>
+<option value="1">Pared</option>
+<option value="2">Techo</option>
+<option value="2">Piso</option>
+<option value="2">Baño</option>
+</select>
+</div>
+
+<button onclick="nextStep()">Siguiente</button>
+
+</div>
+
+
+<div class="step" id="step2">
+
+<div class="question">
+<label>¿Hay manchas de humedad?</label>
+<select id="manchas">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<div class="question">
+<label>¿La pintura o revoque se desprende?</label>
+<select id="desprendimiento">
+<option value="0">No</option>
+<option value="2">Sí</option>
+</select>
+</div>
+
+<button onclick="nextStep()">Siguiente</button>
+
+</div>
+
+
+<div class="step" id="step3">
+
+<div class="question">
+<label>¿Existen goteras visibles?</label>
+<select id="goteras">
+<option value="0">No</option>
+<option value="3">Sí</option>
+</select>
+</div>
+
+<div class="question">
+<label>¿Hay olor constante a humedad?</label>
+<select id="olor">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<button onclick="diagnosticar()">Ver diagnóstico</button>
+
+</div>
+
+
+<div id="resultado"></div>
+
+</div>
+
+
+<script>
+
+let currentStep = 0;
+let steps = document.querySelectorAll(".step");
+
+function nextStep(){
+steps[currentStep].classList.remove("active");
+currentStep++;
+steps[currentStep].classList.add("active");
+}
+
+function diagnosticar(){
+
+let ubicacion = parseInt(document.getElementById("ubicacion").value);
+let manchas = parseInt(document.getElementById("manchas").value);
+let desprendimiento = parseInt(document.getElementById("desprendimiento").value);
+let goteras = parseInt(document.getElementById("goteras").value);
+let olor = parseInt(document.getElementById("olor").value);
+
+let puntos = ubicacion + manchas + desprendimiento + goteras + olor;
+
+let resultado = document.getElementById("resultado");
+
+let texto = "";
+let clase = "";
+
+if(puntos <= 2){
+clase="result low";
+texto="🟢 Riesgo bajo. Puede ser humedad leve o condensación. Se recomienda mantenimiento preventivo.";
+}
+else if(puntos <=5){
+clase="result medium";
+texto="🟡 Riesgo moderado. Es posible que exista filtración. Se recomienda una inspección técnica.";
+}
+else{
+clase="result high";
+texto="🔴 Riesgo alto. Puede existir filtración activa o daño estructural. Se recomienda reparación inmediata.";
+}
+
+resultado.innerHTML = `
+<div class="${clase}">${texto}</div>
+<a class="whatsapp" target="_blank"
+href="https://wa.me/59177659432?text=Hola%20Imperbol,%20realicé%20el%20diagnóstico%20de%20humedad%20y%20necesito%20una%20inspección.">
+Solicitar inspección por WhatsApp
+</a>
+`;
+
+steps[currentStep].classList.remove("active");
+}
+
+</script>
+
+</body>
+</html>

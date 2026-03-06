@@ -60,12 +60,20 @@
             <p class="hero-subtitle">
                 Soluciones profesionales para goteras, filtraciones y humedad con garantía real.
             </p>
-            <a href="#contacto" class="hero-cta">
-                Diagnóstico gratuito
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+            <div class="hero-actions">
+                <a href="#calculadora" class="hero-cta">
+                    Calculadora de humedad
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#contacto" class="hero-cta hero-cta--alt">
+                    Diagnóstico gratuito
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
         </div>
 
         <div class="hero-dots">
@@ -83,27 +91,64 @@
         </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats">
-        <div class="stats-inner">
-            <div class="stat reveal">
-                <div class="stat-num"><span id="s1">0</span>+</div>
-                <div class="stat-label">Proyectos completados</div>
+    <!-- MISION & VISION -->
+    <section id="mision" class="mission">
+        <div class="mission-inner">
+            <div class="mission-head reveal">
+                <span class="section-label">Nuestra esencia</span>
+                <h2 class="section-title">Misión y Visión</h2>
+                <p class="section-sub">Impulsamos soluciones confiables para proteger tu hogar y construir espacios más seguros y duraderos.</p>
             </div>
-            <div class="stat reveal">
-                <div class="stat-num"><span id="s2">0</span>%</div>
-                <div class="stat-label">Satisfacción de clientes</div>
-            </div>
-            <div class="stat reveal">
-                <div class="stat-num"><span id="s3">0</span></div>
-                <div class="stat-label">Años de experiencia</div>
-            </div>
-            <div class="stat reveal">
-                <div class="stat-num"><span id="s4">0</span></div>
-                <div class="stat-label">Ciudades atendidas</div>
+            <div class="mission-grid">
+                <div class="mission-card reveal">
+                    <div class="mission-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 7h7l-6 5 2 7-6-4-6 4 2-7-6-5h7z"/>
+                        </svg>
+                    </div>
+                    <h3>Misión</h3>
+                    <p>Brindar servicios de impermeabilización y diagnóstico que prevengan daños estructurales, con honestidad y eficiencia.</p>
+                </div>
+                <div class="mission-card reveal">
+                    <div class="mission-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Visión</h3>
+                    <p>Ser la opción de confianza en toda la región, reconocidos por la calidad, la innovación y el servicio al cliente.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- CALCULADORA DE HUMEDAD -->
+    <section id="calculadora" class="calculator">
+        <div class="calculator-inner">
+            <div class="calculator-head reveal">
+                <span class="section-label">Herramienta útil</span>
+                <h2 class="section-title">Calculadora de Humedad</h2>
+                <p class="section-sub">Ingresa la temperatura y el punto de rocío para estimar la humedad relativa y saber si es necesario un diagnóstico.</p>
+            </div>
+            <div class="humidity-box reveal">
+                <h3>Calculadora de Humedad</h3>
+                <p>Evalúa las condiciones de tu propiedad</p>
+                <div class="humidity-row">
+                    <div class="form-group">
+                        <label for="temp">Temperatura (°C)</label>
+                        <input type="number" id="temp" step="0.1" placeholder="ej: 22">
+                    </div>
+                    <div class="form-group">
+                        <label for="dew">Punto de rocío (°C)</label>
+                        <input type="number" id="dew" step="0.1" placeholder="ej: 14">
+                    </div>
+                </div>
+                <button class="btn-calc" id="calc-humidity">Calcular humedad relativa</button>
+                <p id="humidity-result"></p>
+            </div>
+        </div>
+    </section>
 
     <!-- SERVICES -->
     <section id="servicios" class="services">
@@ -264,22 +309,6 @@
                     <span>Presupuesto sin compromiso</span>
                 </div>
 
-                <div class="humidity-box reveal">
-                    <h3>Calculadora de Humedad</h3>
-                    <p>Evalúa las condiciones de tu propiedad</p>
-                    <div class="humidity-row">
-                        <div class="form-group">
-                            <label for="temp">Temperatura (°C)</label>
-                            <input type="number" id="temp" step="0.1" placeholder="ej: 22">
-                        </div>
-                        <div class="form-group">
-                            <label for="dew">Punto de rocío (°C)</label>
-                            <input type="number" id="dew" step="0.1" placeholder="ej: 14">
-                        </div>
-                    </div>
-                    <button class="btn-calc" id="calc-humidity">Calcular humedad relativa</button>
-                    <p id="humidity-result"></p>
-                </div>
             </div>
 
             <div class="contact-form-wrap reveal">
@@ -309,11 +338,15 @@
         </div>
     </section>
     <footer class="site-footer">
-        <div class="footer-inner">
-            <span class="footer-brand">Imperbol Solutions</span>
-            <span class="footer-copy">© 2026 — Expertos en Reparación de Filtraciones y Goteras</span>
-        </div>
-    </footer>
+    <div class="footer-inner">
+        <span class="footer-brand">Imperbol Solutions</span>
+        <span class="footer-copy">
+            © 2026 Imperbol Solutions — Todos los derechos reservados |
+            Teléfono / WhatsApp: <a href="https://wa.me/59177659432" target="_blank">+591 77659432</a> |
+            Instagram: <a href="https://www.instagram.com/imperbol.tj?utm_source=qr&igsh=MWxiMnQ1dnkzcHFi" target="_blank">@imperbol.tj</a>
+        </span>
+    </div>
+</footer>
 
     <script src="script.js"></script>
 </body>

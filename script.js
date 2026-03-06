@@ -54,32 +54,7 @@ document.querySelectorAll('.projects-grid .project-card').forEach((el, i) => { e
 document.querySelectorAll('.gallery-grid .g-item').forEach((el, i) => { el.dataset.delay = i * 80; });
 document.querySelectorAll('.stats .reveal').forEach((el, i) => { el.dataset.delay = i * 100; });
 
-// ─── COUNTER ANIMATION ─────────────────────────────────
-const counters = [
-    { id: 's1', target: 350 },
-    { id: 's2', target: 98 },
-    { id: 's3', target: 15 },
-    { id: 's4', target: 12 },
-];
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            counters.forEach(({ id, target }) => {
-                const el = document.getElementById(id);
-                let count = 0;
-                const step = Math.ceil(target / 60);
-                const timer = setInterval(() => {
-                    count = Math.min(count + step, target);
-                    el.textContent = count;
-                    if (count >= target) clearInterval(timer);
-                }, 24);
-            });
-            statsObserver.disconnect();
-        }
-    });
-}, { threshold: .4 });
-statsObserver.observe(document.querySelector('.stats'));
-
+// ─── NOTE: Se eliminó la animación de estadísticas porque ahora se muestra Misión y Visión.
 // ─── FORM ───────────────────────────────────────────────
 document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
