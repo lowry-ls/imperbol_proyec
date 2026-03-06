@@ -119,3 +119,22 @@ document.getElementById('calc-humidity').addEventListener('click', () => {
         res.textContent = `Humedad: ${rh.toFixed(1)}% — Nivel normal de humedad.`;
     }
 });
+
+// ─── IMAGE FALLBACK (ERROR) ───────────────────────────────
+// Reemplaza cualquier imagen remota con una imagen local de error.
+const ERROR_IMG = 'imgs/error.png';
+
+document.querySelectorAll('img').forEach(img => {
+    const srcAttr = img.getAttribute('src') || '';
+    img.loading = 'lazy';
+
+    if (/^https?:\/\//i.test(srcAttr)) {
+        img.src = ERROR_IMG;
+    }
+
+    img.addEventListener('error', () => {
+        if (img.src !== ERROR_IMG) {
+            img.src = ERROR_IMG;
+        }
+    }, { once: true });
+});
