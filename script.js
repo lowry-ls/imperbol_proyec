@@ -44,11 +44,9 @@ document.querySelectorAll('.reveal, .service-card, .project-card, .g-item').forE
     observer.observe(el);
 });
 
-// stagger siblings
 document.querySelectorAll('.services-grid .service-card').forEach((el, i) => { el.dataset.delay = i * 120; });
 document.querySelectorAll('.projects-grid .project-card').forEach((el, i) => { el.dataset.delay = i * 120; });
 document.querySelectorAll('.gallery-grid .g-item').forEach((el, i) => { el.dataset.delay = i * 80; });
-document.querySelectorAll('.stats .reveal').forEach((el, i) => { el.dataset.delay = i * 100; });
 
 document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
@@ -67,19 +65,13 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     resp.className = 'success';
     e.target.reset();
 });
-const ERROR_IMG = 'imgs/error.png';
 
+const ERROR_IMG = 'imgs/error.png';
 document.querySelectorAll('img').forEach(img => {
     const srcAttr = img.getAttribute('src') || '';
     img.loading = 'lazy';
-
-    if (/^https?:\/\//i.test(srcAttr)) {
-        img.src = ERROR_IMG;
-    }
-
+    if (/^https?:\/\//i.test(srcAttr)) img.src = ERROR_IMG;
     img.addEventListener('error', () => {
-        if (img.src !== ERROR_IMG) {
-            img.src = ERROR_IMG;
-        }
+        if (img.src !== ERROR_IMG) img.src = ERROR_IMG;
     }, { once: true });
 });
