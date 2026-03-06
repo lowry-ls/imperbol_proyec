@@ -250,7 +250,6 @@ nav a:hover::after { width: 100%; }
     background: rgba(255,255,255,.22);
 }
 
-/* dots */
 .hero-dots {
     position: absolute; bottom: 30px; left: 50%;
     transform: translateX(-50%);
@@ -269,7 +268,6 @@ nav a:hover::after { width: 100%; }
     transform: scale(1.4);
 }
 
-/* scroll indicator */
 .scroll-hint {
     position: absolute; bottom: 36px; right: 5%;
     display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -283,7 +281,6 @@ nav a:hover::after { width: 100%; }
 }
 .scroll-hint svg { opacity: .6; }
 
-/* ─── SECTION SHARED ─────────────────────────────────────── */
 section { padding: 100px 5%; }
 
 .section-label {
@@ -307,7 +304,6 @@ section { padding: 100px 5%; }
     font-size: .95rem;
 }
 
-/* ─── SERVICES ───────────────────────────────────────────── */
 .services { background: var(--white); }
 .services-inner {
     max-width: 1240px; margin: 0 auto;
@@ -361,7 +357,6 @@ section { padding: 100px 5%; }
 }
 .service-card p { color: var(--muted); line-height: 1.7; font-size: .92rem; }
 
-/* ─── PROJECTS ───────────────────────────────────────────── */
 .projects { background: var(--cream); }
 .projects-inner { max-width: 1240px; margin: 0 auto; }
 .projects-head { margin-bottom: 60px; }
@@ -403,7 +398,6 @@ section { padding: 100px 5%; }
 }
 .project-body p { color: var(--muted); font-size: .88rem; }
 
-/* ─── GALLERY ────────────────────────────────────────────── */
 .gallery { background: var(--navy); }
 .gallery-inner { max-width: 1240px; margin: 0 auto; }
 .gallery-head { margin-bottom: 50px; }
@@ -451,7 +445,6 @@ section { padding: 100px 5%; }
     .gallery-grid .g-item:first-child { grid-column: 1; grid-row: 1; }
 }
 
-/* ─── MISION & VISION ────────────────────────────────────── */
 .mission { background: var(--cream); }
 .mission-inner { max-width: 1240px; margin: 0 auto; }
 .mission-grid {
@@ -483,12 +476,20 @@ section { padding: 100px 5%; }
 }
 .mission-card p { color: var(--muted); line-height: 1.6; }
 
-/* ─── CALCULATOR ─────────────────────────────────────────── */
 .calculator { background: var(--white); }
 .calculator-inner { max-width: 1100px; margin: 0 auto; }
 .calculator-head { margin-bottom: 36px; }
+.calculator-frame {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 32px rgba(0,0,0,.1);
+}
+.calculator-frame iframe {
+    width: 100%;
+    height: 650px;
+    border: 0;
+}
 
-/* ─── CONTACT ────────────────────────────────────────────── */
 .contact { background: var(--cream); }
 .contact-inner {
     max-width: 1100px; margin: 0 auto;
@@ -512,7 +513,6 @@ section { padding: 100px 5%; }
 }
 .contact-info-icon svg { color: white; }
 
-/* form */
 .contact-form-wrap {
     background: var(--white);
     border-radius: 20px;
@@ -611,7 +611,6 @@ section { padding: 100px 5%; }
     min-height: 24px; font-weight: 500;
 }
 
-/* ─── FOOTER ─────────────────────────────────────────────── */
 .site-footer {
     background: var(--navy);
     padding: 40px 5%;
@@ -627,6 +626,5 @@ section { padding: 100px 5%; }
 }
 .footer-copy { color: rgba(255,255,255,.35); font-size: .82rem; }
 
-/* ─── REVEAL ANIMATION ───────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.visible { opacity: 1; transform: translateY(0); }

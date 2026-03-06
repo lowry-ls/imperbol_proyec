@@ -1,10 +1,8 @@
-// ─── HEADER SCROLL ─────────────────────────────────────
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ─── HAMBURGER ─────────────────────────────────────────
 const hamburger = document.getElementById('hamburger');
 const navList = document.getElementById('nav-list');
 hamburger.addEventListener('click', () => {
@@ -16,7 +14,6 @@ navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     navList.classList.remove('open');
 }));
 
-// ─── CAROUSEL ──────────────────────────────────────────
 let currentSlide = 1;
 const totalSlides = 4;
 let autoTimer;
@@ -32,7 +29,6 @@ function goToSlide(n) {
 }
 autoTimer = setInterval(() => goToSlide(currentSlide + 1), 7000);
 
-// ─── SCROLL REVEAL ─────────────────────────────────────
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -54,8 +50,6 @@ document.querySelectorAll('.projects-grid .project-card').forEach((el, i) => { e
 document.querySelectorAll('.gallery-grid .g-item').forEach((el, i) => { el.dataset.delay = i * 80; });
 document.querySelectorAll('.stats .reveal').forEach((el, i) => { el.dataset.delay = i * 100; });
 
-// ─── NOTE: Se eliminó la animación de estadísticas porque ahora se muestra Misión y Visión.
-// ─── FORM ───────────────────────────────────────────────
 document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
     const name  = document.getElementById('name').value.trim();
@@ -73,30 +67,6 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     resp.className = 'success';
     e.target.reset();
 });
-
-// ─── HUMIDITY CALCULATOR ───────────────────────────────
-document.getElementById('calc-humidity').addEventListener('click', () => {
-    const t   = parseFloat(document.getElementById('temp').value);
-    const dew = parseFloat(document.getElementById('dew').value);
-    const res = document.getElementById('humidity-result');
-    if (isNaN(t) || isNaN(dew)) {
-        res.style.color = '#e07070';
-        res.textContent = 'Ingresa valores válidos.';
-        return;
-    }
-    const a = 17.625, b = 243.04;
-    const rh = Math.exp((a * dew / (b + dew)) - (a * t / (b + t))) * 100;
-    if (rh > 60) {
-        res.style.color = '#f0a020';
-        res.textContent = `Humedad: ${rh.toFixed(1)}% — Recomendamos un diagnóstico profesional.`;
-    } else {
-        res.style.color = '#8fd8cc';
-        res.textContent = `Humedad: ${rh.toFixed(1)}% — Nivel normal de humedad.`;
-    }
-});
-
-// ─── IMAGE FALLBACK (ERROR) ───────────────────────────────
-// Reemplaza cualquier imagen remota con una imagen local de error.
 const ERROR_IMG = 'imgs/error.png';
 
 document.querySelectorAll('img').forEach(img => {
